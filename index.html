@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hello World</title>
+<style>
+:root{
+  --bg:#F3F6FB; --ink:#10233F; --accent:#1F5EFF; --accent-ink:#FFFFFF; --muted:#5B6B82;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#0E1A2E; --ink:#EEF3FB; --accent:#6C97FF; --accent-ink:#0E1A2E; --muted:#9BB0CF; }
+}
+:root[data-theme="dark"]{ --bg:#0E1A2E; --ink:#EEF3FB; --accent:#6C97FF; --accent-ink:#0E1A2E; --muted:#9BB0CF; }
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:"Avenir Next","Segoe UI",system-ui,-apple-system,sans-serif;
+  display:flex; align-items:center; justify-content:center; text-align:center; padding:24px;
+}
+main{max-width:100%}
+h1{
+  font-size:clamp(2.6rem,12vw,6rem); line-height:1.05; margin:0 0 12px;
+  font-weight:800; letter-spacing:-0.03em; transition:opacity .2s ease, transform .2s ease;
+}
+h1.swap{opacity:0; transform:translateY(8px)}
+p{margin:0 0 32px; color:var(--muted); font-size:1.05rem}
+button{
+  font:inherit; font-weight:700; font-size:1.1rem; cursor:pointer;
+  background:var(--accent); color:var(--accent-ink); border:0; border-radius:14px;
+  padding:16px 32px; min-height:52px; transition:transform .1s ease;
+}
+button:active{transform:scale(.97)}
+button:focus-visible{outline:3px solid var(--ink); outline-offset:3px}
+@media (prefers-reduced-motion: reduce){ h1,button{transition:none} }
+</style>
+</head>
+<body>
+<main>
+  <h1 id="msg">Hello World</h1>
+  <p id="sub">Tap the button to change this text.</p>
+  <button id="btn" type="button">Click me</button>
+</main>
+<script>
+var msg=document.getElementById("msg"), sub=document.getElementById("sub"), btn=document.getElementById("btn"), built=false;
+btn.addEventListener("click", function(){
+  msg.classList.add("swap");
+  setTimeout(function(){
+    built=!built;
+    msg.textContent = built ? "I built this" : "Hello World";
+    sub.textContent = built ? "Tap again to switch back." : "Tap the button to change this text.";
+    btn.textContent = built ? "Reset" : "Click me";
+    msg.classList.remove("swap");
+  }, 180);
+});
+</script>
+</body>
+</html>
